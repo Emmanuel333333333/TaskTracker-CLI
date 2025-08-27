@@ -4,31 +4,32 @@ import main.kotlin.com.galeanoemmanuel.tasktracker.model.Categoria
 import main.kotlin.com.galeanoemmanuel.tasktracker.model.Tarea
 import main.kotlin.com.galeanoemmanuel.tasktracker.model.enums.EstadoTarea
 import main.kotlin.com.galeanoemmanuel.tasktracker.model.enums.Prioridad
-import main.kotlin.com.galeanoemmanuel.tasktracker.service.GestorTareas
-import main.kotlin.com.galeanoemmanuel.tasktracker.ui.Menu
 
 /**
  * Main de la aplicación.
- * Por defecto ejecuta las pruebas pedidas en la guia.
- * CLI interactivo activado codigo al final para acceder al menu.
+ * Fase básica + desafíos (categoría y prioridad).
  */
 fun main() {
-    val gestor = GestorTareas()
-
-    // Categorías si quieres crear más, solo crea más instancias con otro id
+    // Categorías
     val cat1 = Categoria(1, "Escuela", "Tareas académicas")
     val cat2 = Categoria(2, "Trabajo", "Tareas laborales")
-    // Tareas
+
+    // Crear tareas
     val tarea1 = Tarea(1, "Test", "Descripción", EstadoTarea.PENDIENTE, "19/12/2024", Prioridad.MEDIA, cat1)
     val tarea2 = Tarea(2, "Aprender Kotlin", "Descripción", EstadoTarea.PENDIENTE, "20/08/2025", Prioridad.ALTA, cat2)
+    val tarea3 = Tarea(3, "Aprender C#", "Descripción", EstadoTarea.EN_PROGRESO, "15/09/2024", Prioridad.BAJA, cat1)
+    val tarea4 = Tarea(4, "Estudiar para el examen", "Descripción", EstadoTarea.PENDIENTE, "22/08/2025", Prioridad.ALTA, cat1)
 
-    // Agregar tareas al gestor
-    gestor.agregarTarea(tarea1)
-    gestor.agregarTarea(tarea2)
-
-    // Cambiar estado de una tarea
+    // Cambiar estado de algunas tareas (según la guía)
     tarea2.cambiarEstado(EstadoTarea.COMPLETADA)
+    tarea3.cambiarEstado(EstadoTarea.EN_PROGRESO)
+    tarea4.cambiarEstado(EstadoTarea.COMPLETADA)
 
-    // CLI interactivo
-    Menu(gestor).iniciar()
+    // Mostrar todas las tareas
+    println("📋 Lista de tareas:\n")
+    val tareas = listOf(tarea1, tarea2, tarea3, tarea4)
+    for (t in tareas) {
+        println(t.mostrarInfo())
+        println("----------------------------------------------------")
+    }
 }
